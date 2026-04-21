@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  --bg: #05070d;
+  --bg-soft: #0a0f1b;
+  --border: rgba(160, 248, 255, 0.14);
+  --text-strong: #f5f7ff;
+  --text-soft: rgba(235, 242, 255, 0.78);
+  --muted: rgba(181, 195, 224, 0.64);
+  --accent: #46e6ff;
+  --accent-soft: #8ff7ff;
+  --neon-accent: #ff4a84;
+  --myco-accent: #7fe08e;
+  --panel-shadow: 0 32px 120px rgba(0, 0, 0, 0.42);
+  --display-font: 'Space Grotesk', sans-serif;
+  --body-font: 'IBM Plex Sans JP', sans-serif;
+  color: var(--text-soft);
+  background:
+    radial-gradient(circle at top left, rgba(70, 230, 255, 0.1), transparent 28%),
+    radial-gradient(circle at top right, rgba(255, 74, 132, 0.12), transparent 26%),
+    linear-gradient(180deg, #04060b 0%, #09101c 100%);
+  font: 16px/1.6 var(--body-font);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(4, 6, 11, 0.86), rgba(6, 9, 15, 0.96)),
+    var(--bg);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(70, 230, 255, 0.14), transparent 22%),
+    radial-gradient(circle at 80% 10%, rgba(255, 74, 132, 0.16), transparent 22%),
+    radial-gradient(circle at 50% 80%, rgba(127, 224, 142, 0.1), transparent 24%);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+p {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
