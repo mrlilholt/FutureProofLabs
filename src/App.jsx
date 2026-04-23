@@ -176,9 +176,13 @@ function App() {
           <p className="brand-kicker">Android Apps / Creative Systems</p>
           <div>
             <a className="brand-name" href="#hero">
-              FutureProof Labs
+              <img
+                className="brand-logo"
+                src="/media/futureproof-logo.png"
+                alt="FutureProof Labs"
+              />
             </a>
-            <p className="brand-jp">フューチャープルーフ・ラボ</p>
+            <p className="brand-jp">FutureProof Labs</p>
           </div>
         </div>
 

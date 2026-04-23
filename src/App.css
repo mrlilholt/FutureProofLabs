@@ -72,15 +72,22 @@
 }
 
 .brand-name {
-  color: var(--text-strong);
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
-  font-family: var(--display-font);
-  font-size: clamp(1.4rem, 1.6vw, 1.9rem);
-  letter-spacing: 0.04em;
+}
+
+.brand-logo {
+  display: block;
+  width: clamp(120px, 10vw, 152px);
+  height: auto;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.22));
 }
 
 .brand-jp {
   margin-top: 4px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .topnav {
