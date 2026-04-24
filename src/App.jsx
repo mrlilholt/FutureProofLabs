@@ -28,6 +28,20 @@ const apps = [
     closedTestUrl: 'https://play.google.com/apps/testing/com.mycojournalpro.app',
     storeUrl: 'https://play.google.com/store/apps/details?id=com.mycojournalpro.app',
   },
+  {
+    id: 'easel',
+    name: 'Easel AR-Art Studio',
+    eyebrow: 'AR drawing reference tool for Android',
+    description:
+      'An Android-first drawing aid that places a transparent reference image over the live camera feed so artists can line up, trace, and sketch with more control.',
+    image: '/media/easel-splash.png',
+    logo: '/media/easel-logo.png',
+    accent: 'var(--easel-accent)',
+    tags: ['Android', 'Art', 'AR Drawing'],
+    closedTestUrl: 'https://play.google.com/apps/testing/com.easel.app',
+    storeUrl: 'https://play.google.com/store/apps/details?id=com.easel.app',
+    privacyUrl: '/easel-privacy-policy.html',
+  },
 ]
 
 const comingSoon = [
@@ -162,7 +176,7 @@ function App() {
 
       event.currentTarget.reset()
       setFormStatus('success')
-    } catch (error) {
+    } catch {
       setFormStatus('error')
     }
   }
@@ -279,8 +293,10 @@ function App() {
               <p className="section-label">Current Work</p>
               <h2>Apps available now</h2>
               <p>
-                Two public-facing app pages are live here now, each with direct
-                paths to the Play Store listing and the current closed test.
+                Three public-facing app pages are live here now, each with
+                direct paths to the Play Store listing and current testing
+                access. Easel also includes a dedicated privacy-policy page for
+                store compliance.
               </p>
             </div>
 
@@ -325,6 +341,11 @@ function App() {
                     <a href={app.storeUrl} target="_blank" rel="noreferrer">
                       Open Play Store
                     </a>
+                    {app.privacyUrl ? (
+                      <a href={app.privacyUrl} target="_blank" rel="noreferrer">
+                        Privacy Policy
+                      </a>
+                    ) : null}
                   </div>
                 </article>
               ))}
