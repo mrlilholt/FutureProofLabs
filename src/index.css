@@ -1,25 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap');
 
 :root {
-  --bg: #05070d;
-  --bg-soft: #0a0f1b;
-  --border: rgba(160, 248, 255, 0.14);
-  --text-strong: #f5f7ff;
-  --text-soft: rgba(235, 242, 255, 0.78);
-  --muted: rgba(181, 195, 224, 0.64);
-  --accent: #46e6ff;
-  --accent-soft: #8ff7ff;
-  --neon-accent: #ff4a84;
-  --myco-accent: #7fe08e;
-  --easel-accent: #d5d0c7;
-  --panel-shadow: 0 32px 120px rgba(0, 0, 0, 0.42);
-  --display-font: 'Space Grotesk', sans-serif;
+  --bg: #e9dbc2;
+  --bg-soft: #f4ede0;
+  --wood-border: rgba(122, 92, 53, 0.18);
+  --text-strong: #2f2216;
+  --text-soft: rgba(62, 45, 29, 0.76);
+  --muted: rgba(95, 70, 44, 0.62);
+  --accent: #8b623d;
+  --accent-soft: #b18754;
+  --neon-accent: #8b5d52;
+  --myco-accent: #8e9b65;
+  --easel-accent: #c5b49a;
+  --panel-shadow: 0 40px 110px rgba(83, 54, 27, 0.14);
+  --display-font: 'Cormorant Garamond', serif;
   --body-font: 'IBM Plex Sans JP', sans-serif;
   color: var(--text-soft);
   background:
-    radial-gradient(circle at top left, rgba(70, 230, 255, 0.1), transparent 28%),
-    radial-gradient(circle at top right, rgba(255, 74, 132, 0.12), transparent 26%),
-    linear-gradient(180deg, #04060b 0%, #09101c 100%);
+    radial-gradient(circle at top left, rgba(177, 135, 84, 0.18), transparent 24%),
+    radial-gradient(circle at top right, rgba(132, 96, 61, 0.12), transparent 28%),
+    linear-gradient(180deg, #e7d8bc 0%, #d8c5a2 100%);
   font: 16px/1.6 var(--body-font);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -40,7 +40,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    linear-gradient(180deg, rgba(4, 6, 11, 0.86), rgba(6, 9, 15, 0.96)),
+    linear-gradient(180deg, rgba(248, 243, 231, 0.62), rgba(214, 194, 158, 0.9)),
     var(--bg);
 }
 
@@ -50,9 +50,10 @@ body::before {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 20% 15%, rgba(70, 230, 255, 0.14), transparent 22%),
-    radial-gradient(circle at 80% 10%, rgba(255, 74, 132, 0.16), transparent 22%),
-    radial-gradient(circle at 50% 80%, rgba(127, 224, 142, 0.1), transparent 24%);
+    linear-gradient(90deg, rgba(83, 57, 33, 0.04) 1px, transparent 1px),
+    linear-gradient(rgba(83, 57, 33, 0.025) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.45;
 }
 
 button,

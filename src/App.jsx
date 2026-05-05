@@ -1,204 +1,107 @@
-import { startTransition, useEffect, useRef, useState } from 'react'
+import { startTransition, useEffect, useState } from 'react'
 import './App.css'
 
 const apps = [
   {
     id: 'neon',
     name: 'Neon Horizon Radio',
-    eyebrow: 'Synthwave radio for Android Auto and beyond',
-    description:
-      'A cinematic streaming radio app with a late-night boulevard mood, built for drivers, desks, and background focus.',
-    image: '/media/neon-sunset.png',
+    image: '/media/neon-feature-graphic.png',
     logo: '/media/neon-logo.png',
     accent: 'var(--neon-accent)',
-    tags: ['Android', 'Streaming', 'Automotive'],
     closedTestUrl: 'https://play.google.com/apps/testing/com.neonhorizonradio.app',
     storeUrl: 'https://play.google.com/store/apps/details?id=com.neonhorizonradio.app',
+    webUrl: 'https://neonhorizonradio.netlify.app/',
   },
   {
     id: 'myco',
     name: 'MycoJournal Pro',
-    eyebrow: 'Field notes and grow intelligence',
-    description:
-      'A polished mushroom cultivation journal for logging species, tracking runs, and building a cleaner growing workflow.',
-    image: '/media/myco-lionsmane.png',
-    logo: '/media/myco-logo.png',
+    image: '/media/myco-feature-graphic.png',
+    logo: '/media/myco-icon.png',
     accent: 'var(--myco-accent)',
-    tags: ['Android', 'Productivity', 'Cultivation'],
     closedTestUrl: 'https://play.google.com/apps/testing/com.mycojournalpro.app',
     storeUrl: 'https://play.google.com/store/apps/details?id=com.mycojournalpro.app',
   },
   {
     id: 'easel',
     name: 'Easel AR-Art Studio',
-    eyebrow: 'AR drawing reference tool for Android',
-    description:
-      'An Android-first drawing aid that places a transparent reference image over the live camera feed so artists can line up, trace, and sketch with more control.',
-    image: '/media/easel-splash.png',
+    image: '/media/easel-feature-graphic.png',
     logo: '/media/easel-logo.png',
     accent: 'var(--easel-accent)',
-    tags: ['Android', 'Art', 'AR Drawing'],
     closedTestUrl: 'https://play.google.com/apps/testing/com.easel.app',
     storeUrl: 'https://play.google.com/store/apps/details?id=com.easel.app',
     privacyUrl: '/easel-privacy-policy.html',
+    gallery: [
+      '/media/easel-feature-graphic.png',
+      '/media/easel-splash.png',
+    ],
   },
 ]
 
 const comingSoon = [
   {
-    name: 'ハンコスタジオ',
-    romanized: 'Hanko Studio',
-    summary: 'A playful stamp-making studio with a crafted analog-meets-mobile feel.',
-    details:
-      'A future-facing maker app centered on custom stamp composition, tactile visuals, and a more expressive analog interface language.',
+    id: 'hanko',
     image: '/media/hanko-top.jpg',
-    imageAlt: 'Hanko Studio reference artwork',
-    accent: 'rgba(255, 111, 97, 0.38)',
-    display: 'kanji',
+    name: 'Hanko Studio',
+    summary: 'A stamp-making studio with a warmer analog personality and a more crafted material language.',
   },
   {
-    name: 'YumTrail',
-    romanized: 'YumTrail',
-    summary:
-      'A whimsical food-adventure concept with map energy, collectibles, and character-forward exploration.',
-    details:
-      'Designed as a more exploratory product world with illustrated environments, collectible interactions, and a softer brand mood than the current app lineup.',
+    id: 'yumtrail',
     image: '/media/yumtrail-scene.png',
-    imageAlt: 'YumTrail world art',
-    logo: '/media/yumtrail-logo.png',
-    accent: 'rgba(123, 231, 159, 0.3)',
-    display: 'logo',
+    name: 'YumTrail',
+    summary: 'A playful food-adventure world built around exploration, landmarks, and collectible moments.',
   },
-  {
-    name: 'The Mushroom Farming App',
-    romanized: 'The Mushroom Farming App',
-    summary:
-      'A more expansive mushroom operations toolkit aimed at growers who need planning, references, and routines.',
-    details:
-      'This concept leans more operational than MycoJournal Pro, with room for broader planning flows, reference systems, and cultivation support tooling.',
-    image: '/media/mushroom-farming-icon.png',
-    imageAlt: 'The Mushroom Farming App icon',
-    accent: 'rgba(127, 224, 142, 0.32)',
-    display: 'icon',
-  },
-  {
-    name: 'Nocturne Drive',
-    romanized: 'Nocturne Drive',
-    summary: 'A night-coded mobility concept with atmosphere-first interface direction.',
-    details:
-      'A cinematic transportation concept focused on mood, route presence, and a richer visual layer built around motion and nighttime contrast.',
-    accent: 'rgba(132, 158, 255, 0.3)',
-    display: 'type',
-  },
-]
-
-const principles = [
-  'Android-first product thinking',
-  'Interfaces with narrative and atmosphere',
-  'Small-batch tools shaped by real use cases',
 ]
 
 const views = [
   { id: 'work', label: 'Work' },
-  { id: 'about', label: 'About' },
-  { id: 'coming-soon', label: 'Coming Soon' },
+  { id: 'archive', label: 'In the Works' },
   { id: 'contact', label: 'Contact' },
 ]
 
 function App() {
   const [activeView, setActiveView] = useState('work')
   const [featuredAppId, setFeaturedAppId] = useState(apps[0].id)
-  const [activeProjectName, setActiveProjectName] = useState(comingSoon[0].name)
-  const [formStatus, setFormStatus] = useState('idle')
-  const appCardRefs = useRef({})
+  const [selectedAppId, setSelectedAppId] = useState(null)
+  const [selectedWorkId, setSelectedWorkId] = useState(null)
 
-  const featuredApp =
-    apps.find((app) => app.id === featuredAppId) ?? apps[0]
-  const activeProject =
-    comingSoon.find((project) => project.name === activeProjectName) ??
-    comingSoon[0]
+  const featuredApp = apps.find((app) => app.id === featuredAppId) ?? apps[0]
+  const selectedApp = apps.find((app) => app.id === selectedAppId) ?? null
+  const selectedWork = comingSoon.find((project) => project.id === selectedWorkId) ?? null
 
   useEffect(() => {
     document.title = 'FutureProof Labs'
   }, [])
 
-  useEffect(() => {
-    if (activeView !== 'work') {
-      return undefined
-    }
-
-    const intervalId = window.setInterval(() => {
-      setFeaturedAppId((currentId) => {
-        const currentIndex = apps.findIndex((app) => app.id === currentId)
-        const nextIndex = (currentIndex + 1) % apps.length
-        return apps[nextIndex].id
-      })
-    }, 3600)
-
-    return () => window.clearInterval(intervalId)
-  }, [activeView])
-
   const switchView = (viewId) => {
     startTransition(() => {
       setActiveView(viewId)
+      setSelectedAppId(null)
+      setSelectedWorkId(null)
     })
   }
 
-  const jumpToAppCard = (appId) => {
-    switchView('work')
-
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        const targetCard = appCardRefs.current[appId]
-        if (targetCard) {
-          targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' })
-        }
-      })
-    })
+  const openAppPage = (appId) => {
+    setFeaturedAppId(appId)
+    setSelectedAppId(appId)
   }
 
-  const handleContactSubmit = async (event) => {
-    event.preventDefault()
-    setFormStatus('submitting')
-
-    const formData = new FormData(event.currentTarget)
-
-    try {
-      const response = await fetch('/__forms.html', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
-      })
-
-      if (!response.ok) {
-        throw new Error('Submission failed')
-      }
-
-      event.currentTarget.reset()
-      setFormStatus('success')
-    } catch {
-      setFormStatus('error')
-    }
+  const openWorkPage = (workId) => {
+    setSelectedWorkId(workId)
   }
 
   return (
     <div className="site-shell" data-view={activeView}>
-      <div className="site-noise" aria-hidden="true" />
+      <div className="paper-grain" aria-hidden="true" />
 
       <header className="topbar">
-        <div className="brand-lockup">
-          <p className="brand-kicker">Android Apps / Creative Systems</p>
-          <div>
-            <a className="brand-name" href="#hero">
-              <img
-                className="brand-logo"
-                src="/media/futureproof-logo.png"
-                alt="FutureProof Labs"
-              />
-            </a>
-            <p className="brand-jp">FutureProof Labs</p>
-          </div>
-        </div>
+        <a className="brand-name" href="#room">
+          <img
+            className="brand-logo"
+            src="/media/futureproof-logo.png"
+            alt="FutureProof Labs"
+          />
+          <span className="brand-wordmark">FutureProof Labs</span>
+        </a>
 
         <nav className="topnav" aria-label="Site Sections">
           {views.map((view) => (
@@ -212,340 +115,252 @@ function App() {
               {view.label}
             </button>
           ))}
+          <a
+            className="topnav-link"
+            href="https://play.google.com/store/apps/dev?id=5951937079147942477&hl=en-US"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Google Play
+          </a>
         </nav>
       </header>
 
-      <main className="page-frame">
-        {activeView === 'work' && (
-          <section className="hero-panel" id="hero">
-            <div className="hero-copy">
-              <p className="eyebrow">Creative Android products with atmosphere</p>
-              <h1>Building Apps you will like to share with others</h1>
-              <p className="hero-text">
-                FutureProof Labs builds Android experiences with sharper visual
-                identity, product clarity, and a distinct world around each app.
-              </p>
+      <main className="room-frame" id="room">
+        {activeView === 'work' && !selectedApp && (
+          <section className="tea-wall" aria-label="Featured apps wall">
+            <div className="tokonoma-bay">
+              <div className="scroll-hanger" aria-hidden="true" />
+              <div className="scroll-panel">
+                <img src="/media/side-logo.png" alt="FutureProof Labs side logo" />
+              </div>
+            </div>
 
-              <div className="hero-actions">
-                <button
-                  className="primary-action"
-                  type="button"
-                  onClick={() => switchView('work')}
-                >
-                  Explore Current Apps
-                </button>
-                <button
-                  className="ghost-action"
-                  type="button"
-                  onClick={() => switchView('coming-soon')}
-                >
-                  View Coming Soon
-                </button>
+            <div className="display-bay">
+              <div className="beam beam-top" aria-hidden="true" />
+              <div className="beam beam-mid" aria-hidden="true" />
+              <div className="beam beam-side" aria-hidden="true" />
+
+              <div className="shelf-row shelf-row-top">
+                {apps.slice(0, 2).map((app) => (
+                  <button
+                    key={app.id}
+                    className="object-card object-card-small"
+                    type="button"
+                    data-active={featuredApp.id === app.id}
+                  onMouseEnter={() => setFeaturedAppId(app.id)}
+                    onFocus={() => setFeaturedAppId(app.id)}
+                    onClick={() => openAppPage(app.id)}
+                    aria-label={`Show ${app.name}`}
+                  >
+                    <img className="shelf-logo" src={app.logo} alt={app.name} />
+                  </button>
+                ))}
               </div>
 
-              <ul className="principles" aria-label="Studio Principles">
-                {principles.map((principle) => (
-                  <li key={principle}>{principle}</li>
-                ))}
-              </ul>
-            </div>
-
-            <aside className="hero-stage">
-              <button
-                className="stage-screen"
-                type="button"
-                style={{ '--stage-accent': featuredApp.accent }}
-                onClick={() => jumpToAppCard(featuredApp.id)}
-                aria-label={`Open download area for ${featuredApp.name}`}
-              >
-                <div className="stage-hud">
-                  <span>Featured Build</span>
-                  <span>01</span>
-                </div>
-
-                <div className="stage-content" key={featuredApp.id}>
-                  <img
-                    className="stage-logo"
-                    src={featuredApp.logo}
-                    alt={`${featuredApp.name} logo`}
-                  />
-
-                  <img
-                    className="stage-image"
-                    src={featuredApp.image}
-                    alt={featuredApp.name}
-                  />
-
-                  <div className="stage-caption">
-                    <p>{featuredApp.name}</p>
-                    <span>{featuredApp.eyebrow} / Tap to open downloads</span>
-                  </div>
-                </div>
-              </button>
-            </aside>
-          </section>
-        )}
-
-        <section className="panel-stack" aria-live="polite">
-          {activeView === 'work' && (
-            <section className="content-panel" data-active="true">
-            <div className="panel-header">
-              <p className="section-label">Current Work</p>
-              <h2>Apps available now</h2>
-              <p>
-                Three public-facing app pages are live here now, each with
-                direct paths to the Play Store listing and current testing
-                access. Easel also includes a dedicated privacy-policy page for
-                store compliance.
-              </p>
-            </div>
-
-            <div className="app-grid">
-              {apps.map((app, index) => (
+              <div className="shelf-row shelf-row-feature">
                 <article
-                  key={app.id}
-                  className="app-card"
-                  ref={(element) => {
-                    appCardRefs.current[app.id] = element
-                  }}
-                  onMouseEnter={() => setFeaturedAppId(app.id)}
-                  onFocusCapture={() => setFeaturedAppId(app.id)}
-                  style={{ '--card-accent': app.accent, '--card-index': index }}
+                  className="object-card object-card-feature"
+                  style={{ '--feature-accent': featuredApp.accent }}
                 >
-                  <div className="app-card-media">
-                    <div className="app-card-media-inner">
-                      <img src={app.logo} alt="" aria-hidden="true" />
-                    </div>
-                  </div>
-
-                  <div className="app-card-copy">
-                    <p className="app-card-eyebrow">{app.eyebrow}</p>
-                    <h3>{app.name}</h3>
-                    <p>{app.description}</p>
-                  </div>
-
-                  <ul className="tag-row" aria-label={`${app.name} categories`}>
-                    {app.tags.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
-
-                  <div className="card-actions">
+                  <button
+                    type="button"
+                    className="feature-image-wrap"
+                    onClick={() => openAppPage(featuredApp.id)}
+                    aria-label={`Open ${featuredApp.name}`}
+                  >
+                    <img
+                      className="feature-image"
+                      src={featuredApp.image}
+                      alt={featuredApp.name}
+                    />
+                  </button>
+                  <div className="feature-actions" aria-label={`${featuredApp.name} links`}>
                     <a
-                      href={app.closedTestUrl}
+                      href={featuredApp.closedTestUrl}
                       target="_blank"
                       rel="noreferrer"
+                      aria-label={`${featuredApp.name} closed test`}
+                      title="Closed test"
                     >
-                      Join Closed Test
+                      ◉
                     </a>
-                    <a href={app.storeUrl} target="_blank" rel="noreferrer">
-                      Open Play Store
+                    <a
+                      href={featuredApp.storeUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${featuredApp.name} Play Store`}
+                      title="Play Store"
+                    >
+                      ↗
                     </a>
-                    {app.privacyUrl ? (
-                      <a href={app.privacyUrl} target="_blank" rel="noreferrer">
-                        Privacy Policy
+                    {featuredApp.privacyUrl ? (
+                      <a
+                        href={featuredApp.privacyUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${featuredApp.name} privacy policy`}
+                        title="Privacy policy"
+                      >
+                        □
                       </a>
                     ) : null}
                   </div>
                 </article>
-              ))}
-            </div>
-            </section>
-          )}
+              </div>
 
-          {activeView === 'about' && (
-            <section className="content-panel" data-active="true">
-            <div className="panel-header">
-              <p className="section-label">About</p>
-              <h2>Built like a small studio with a point of view</h2>
-              <p>
-                FutureProof Labs is a product-focused creative agency layer for
-                Android apps: equal parts software studio, visual system, and
-                brand world.
-              </p>
-            </div>
-
-            <div className="about-grid">
-              <article className="about-card">
-                <p className="about-label">What we make</p>
-                <p>
-                  Utility apps, media apps, niche tools, and experimental mobile
-                  products that feel custom from the first frame.
-                </p>
-              </article>
-              <article className="about-card">
-                <p className="about-label">How we build</p>
-                <p>
-                  React-driven web surfaces, Android-first product direction,
-                  and marketing pages that stay consistent with the software.
-                </p>
-              </article>
-              <article className="about-card">
-                <p className="about-label">What matters</p>
-                <p>
-                  Strong typography, memorable motion, clearer product stories,
-                  and interfaces that do not look like everyone else&apos;s.
-                </p>
-              </article>
-            </div>
-            </section>
-          )}
-
-          {activeView === 'coming-soon' && (
-            <section className="content-panel" data-active="true">
-            <div className="panel-header">
-              <p className="section-label">Coming Soon</p>
-              <h2>Next projects in the lab</h2>
-              <p>
-                A mix of playful tools, more utility-first Android products, and
-                atmospheric concepts already taking shape.
-              </p>
-            </div>
-
-            <div className="soon-layout">
-              <article className="soon-feature">
-                <div
-                  className="soon-feature-visual"
-                  style={{ '--soon-accent': activeProject.accent }}
-                >
-                  {activeProject.image ? (
-                    <img src={activeProject.image} alt={activeProject.imageAlt} />
-                  ) : (
-                    <div className="soon-feature-fallback" aria-hidden="true">
-                      <span>NOCTURNE</span>
-                      <span>DRIVE</span>
-                    </div>
-                  )}
-                </div>
-                <div>
-                  {activeProject.logo ? (
-                    <img
-                      className="soon-feature-logo"
-                      src={activeProject.logo}
-                      alt={`${activeProject.romanized} logo`}
-                    />
-                  ) : (
-                    <div
-                      className="soon-feature-wordmark"
-                      data-display={activeProject.display}
-                    >
-                      <span>{activeProject.name}</span>
-                      <small>{activeProject.romanized}</small>
-                    </div>
-                  )}
-                  <p>
-                    {activeProject.summary}
-                  </p>
-                </div>
-              </article>
-
-              <div className="soon-list">
-                {comingSoon.map((project) => (
+              <div className="shelf-row shelf-row-bottom">
+                {apps.slice(2).map((app) => (
                   <button
-                    key={project.name}
-                    className="soon-card"
+                    key={app.id}
+                    className="object-card object-card-small object-card-wide"
                     type="button"
-                    data-active={project.name === activeProject.name}
-                    onClick={() => setActiveProjectName(project.name)}
+                    data-active={featuredApp.id === app.id}
+                    onMouseEnter={() => setFeaturedAppId(app.id)}
+                    onFocus={() => setFeaturedAppId(app.id)}
+                    onClick={() => openAppPage(app.id)}
+                    aria-label={`Show ${app.name}`}
                   >
-                    <p className="soon-card-title">{project.name}</p>
-                    <p className="soon-card-subtitle">{project.romanized}</p>
-                    <p>{project.summary}</p>
+                    <img className="shelf-logo shelf-logo-wide" src={app.logo} alt={app.name} />
                   </button>
                 ))}
               </div>
+            </div>
+          </section>
+        )}
 
-              <article className="soon-detail">
-                <p className="section-label">Selected Project</p>
-                <h3>{activeProject.name}</h3>
-                <p className="soon-detail-subtitle">{activeProject.romanized}</p>
-                <p>{activeProject.details}</p>
+        {activeView === 'work' && selectedApp && (
+          <section className="app-detail-wall" aria-label={`${selectedApp.name} page`}>
+            <div className="detail-header">
+              <button
+                type="button"
+                className="detail-back"
+                onClick={() => setSelectedAppId(null)}
+              >
+                Back
+              </button>
+            </div>
+
+            <div className="detail-layout">
+              <aside className="detail-tokonoma">
+                <img
+                  className="detail-logo"
+                  src={selectedApp.logo}
+                  alt={selectedApp.name}
+                />
+              </aside>
+
+              <article
+                className="detail-stage"
+                style={{ '--detail-accent': selectedApp.accent }}
+              >
+                <div className="detail-image-frame">
+                  <img
+                    className="detail-image"
+                    src={selectedApp.image}
+                    alt={selectedApp.name}
+                  />
+                </div>
+
+                {selectedApp.gallery?.length ? (
+                  <div className="detail-gallery" aria-label={`${selectedApp.name} gallery`}>
+                    {selectedApp.gallery.map((image, index) => (
+                      <div key={image} className="detail-gallery-card">
+                        <img
+                          src={image}
+                          alt={`${selectedApp.name} preview ${index + 1}`}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+
+                <div className="detail-actions">
+                  <a href={selectedApp.closedTestUrl} target="_blank" rel="noreferrer">
+                    Closed Test
+                  </a>
+                  <a href={selectedApp.storeUrl} target="_blank" rel="noreferrer">
+                    Play Store
+                  </a>
+                  {selectedApp.webUrl ? (
+                    <a href={selectedApp.webUrl} target="_blank" rel="noreferrer">
+                      Web App
+                    </a>
+                  ) : null}
+                  {selectedApp.privacyUrl ? (
+                    <a href={selectedApp.privacyUrl} target="_blank" rel="noreferrer">
+                      Privacy Policy
+                    </a>
+                  ) : null}
+                </div>
               </article>
             </div>
-            </section>
-          )}
+          </section>
+        )}
 
-          {activeView === 'contact' && (
-            <section className="content-panel" data-active="true">
-              <div className="panel-header">
-                <p className="section-label">Contact</p>
-                <h2>Start a conversation</h2>
-                <p>
-                  Use the form below to reach FutureProof Labs. On Netlify, form
-                  notifications can be routed to `lilholtapps@gmail.com`.
-                </p>
-              </div>
-
-              <div className="contact-layout">
-                <article className="contact-card">
-                  <p className="about-label">Direct Email</p>
-                  <a className="contact-link" href="mailto:lilholtapps@gmail.com">
-                    lilholtapps@gmail.com
-                  </a>
-                  <p>
-                    Best for project inquiries, Android app collaborations, and
-                    product questions.
-                  </p>
-                </article>
-
-                <form
-                  className="contact-form"
-                  name="contact"
-                  method="POST"
-                  data-netlify="true"
-                  netlify-honeypot="bot-field"
-                  onSubmit={handleContactSubmit}
+        {activeView === 'archive' && !selectedWork && (
+          <section className="gallery-wall" aria-label="Archive wall">
+            <div className="gallery-grid">
+              {comingSoon.map((project) => (
+                <button
+                  key={project.id}
+                  className="gallery-object"
+                  type="button"
+                  onClick={() => openWorkPage(project.id)}
+                  aria-label={`Open ${project.name}`}
                 >
-                  <input type="hidden" name="form-name" value="contact" />
-                  <input type="hidden" name="subject" value="FutureProof Labs Contact" />
-                  <p className="contact-honeypot">
-                    <label>
-                      Don&apos;t fill this out:
-                      <input name="bot-field" />
-                    </label>
-                  </p>
+                  <img src={project.image} alt={project.name} />
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
 
-                  <label className="field">
-                    <span>Name</span>
-                    <input type="text" name="name" required />
-                  </label>
+        {activeView === 'archive' && selectedWork && (
+          <section className="app-detail-wall" aria-label={`${selectedWork.name} page`}>
+            <div className="detail-header">
+              <button
+                type="button"
+                className="detail-back"
+                onClick={() => setSelectedWorkId(null)}
+              >
+                Back
+              </button>
+            </div>
 
-                  <label className="field">
-                    <span>Email</span>
-                    <input type="email" name="email" required />
-                  </label>
+            <div className="detail-layout detail-layout-work">
+              <aside className="detail-tokonoma detail-tokonoma-work">
+                <img
+                  className="detail-work-image"
+                  src={selectedWork.image}
+                  alt={selectedWork.name}
+                />
+              </aside>
 
-                  <label className="field">
-                    <span>What are you building?</span>
-                    <input type="text" name="project" />
-                  </label>
+              <article className="detail-stage detail-stage-work">
+                <div className="detail-work-copy">
+                  <h2>{selectedWork.name}</h2>
+                  <p>{selectedWork.summary}</p>
+                </div>
+              </article>
+            </div>
+          </section>
+        )}
 
-                  <label className="field field-message">
-                    <span>Message</span>
-                    <textarea name="message" rows="6" required />
-                  </label>
-
-                  <button
-                    className="primary-action"
-                    type="submit"
-                    disabled={formStatus === 'submitting'}
-                  >
-                    {formStatus === 'submitting' ? 'Sending...' : 'Send Message'}
-                  </button>
-
-                  <p className="form-status" data-status={formStatus}>
-                    {formStatus === 'success' &&
-                      'Message sent. Once Netlify notifications are enabled, submissions will route to lilholtapps@gmail.com.'}
-                    {formStatus === 'error' &&
-                      'Something went wrong. You can still reach out directly at lilholtapps@gmail.com.'}
-                    {formStatus === 'idle' &&
-                      'This form is ready for Netlify Forms and includes spam protection.'}
-                  </p>
-                </form>
-              </div>
-            </section>
-          )}
-        </section>
+        {activeView === 'contact' && (
+          <section className="contact-wall" aria-label="Contact wall">
+            <div className="contact-scroll">
+              <img
+                className="contact-logo"
+                src="/media/futureproof-logo.png"
+                alt="FutureProof Labs"
+              />
+              <a className="contact-link" href="mailto:lilholtapps@gmail.com">
+                lilholtapps@gmail.com
+              </a>
+            </div>
+          </section>
+        )}
       </main>
     </div>
   )
