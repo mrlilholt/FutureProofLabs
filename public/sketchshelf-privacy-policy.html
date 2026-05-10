@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SketchShelf Privacy Policy</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #4f4c4b;
+        --panel: rgba(62, 60, 59, 0.92);
+        --border: rgba(145, 235, 238, 0.2);
+        --text: #f8fbfb;
+        --muted: rgba(242, 248, 248, 0.8);
+        --accent: #82dde4;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font: 16px/1.7 "IBM Plex Sans", "Segoe UI", sans-serif;
+        color: var(--muted);
+        background:
+          radial-gradient(circle at top left, rgba(130, 221, 228, 0.16), transparent 26%),
+          linear-gradient(180deg, #484544 0%, #575352 100%);
+      }
+
+      main {
+        width: min(920px, calc(100% - 32px));
+        margin: 32px auto;
+        padding: clamp(24px, 4vw, 40px);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        background: var(--panel);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 32px 120px rgba(0, 0, 0, 0.32);
+      }
+
+      img {
+        display: block;
+        width: min(420px, 100%);
+        margin-bottom: 24px;
+      }
+
+      .logo {
+        border-radius: 28px;
+      }
+
+      h1,
+      h2 {
+        color: var(--text);
+        line-height: 1.05;
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(2.4rem, 6vw, 4.4rem);
+      }
+
+      h2 {
+        margin: 32px 0 10px;
+        font-size: clamp(1.25rem, 2vw, 1.65rem);
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      li + li {
+        margin-top: 8px;
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+        color: var(--accent);
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-size: 0.78rem;
+      }
+
+      .meta {
+        color: rgba(242, 248, 248, 0.6);
+      }
+
+      a {
+        color: var(--text);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img class="logo" src="/media/sketchshelf-wordmark.png" alt="SketchShelf" />
+      <p class="eyebrow">Privacy Policy</p>
+      <h1>SketchShelf</h1>
+      <p class="meta">Last updated: May 10, 2026</p>
+      <p>
+        SketchShelf is a family drawing archive app published by FutureProof Labs.
+        This Privacy Policy explains what information the app accesses, how it is
+        used, and what SketchShelf does not collect.
+      </p>
+
+      <h2>Summary</h2>
+      <p>
+        SketchShelf does not require an account and does not operate a backend
+        service for storing your drawings. Drawings, notes, and app settings are
+        stored locally on your device.
+      </p>
+
+      <h2>Photos and Camera Access</h2>
+      <p>
+        SketchShelf can use your device camera so you can photograph artwork and
+        save it into a family sketchbook. It can also import images that you
+        choose from your device.
+      </p>
+      <p>
+        Captured and imported images are used only to provide the app’s local
+        bookshelf and scrapbook experience. FutureProof Labs does not upload those
+        images to its own servers.
+      </p>
+
+      <h2>Local Storage</h2>
+      <p>
+        SketchShelf stores drawing metadata, notes, favorites, and local image
+        references on your device. On supported native builds, images are copied
+        into app-managed local storage on the device.
+      </p>
+
+      <h2>Camera Roll Behavior</h2>
+      <p>
+        SketchShelf can optionally keep a copy of newly captured images in the
+        device camera roll if the user enables that setting. The app-managed local
+        copy remains the source of truth for the app experience.
+      </p>
+
+      <h2>Data Collection</h2>
+      <ul>
+        <li>SketchShelf does not create user accounts.</li>
+        <li>SketchShelf does not collect names, email addresses, or passwords through the app.</li>
+        <li>SketchShelf does not upload your drawings to FutureProof Labs servers.</li>
+        <li>SketchShelf does not sell personal data.</li>
+      </ul>
+
+      <h2>Third-Party Services</h2>
+      <p>
+        The app may be distributed through Google Play. Google may collect
+        information according to its own policies when you browse, install, or
+        update apps. FutureProof Labs does not control Google Play data
+        practices.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        SketchShelf is designed for family use. It is not intended to knowingly
+        collect personal information from children through a FutureProof Labs
+        backend service because the app does not require user accounts or cloud
+        profiles for the MVP.
+      </p>
+
+      <h2>Changes to This Policy</h2>
+      <p>
+        This policy may be updated if the app’s features or data practices change.
+        Updates will be posted at this page.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        If you have questions about this policy, contact FutureProof Labs at
+        <a href="mailto:lilholtapps@gmail.com">lilholtapps@gmail.com</a>.
+      </p>
+    </main>
+  </body>
+  </html>

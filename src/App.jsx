@@ -3,6 +3,17 @@ import './App.css'
 
 const apps = [
   {
+    id: 'sketchshelf',
+    name: 'SketchShelf',
+    image: '/media/sketchshelf-feature-graphic.png',
+    logo: '/media/sketchshelf-logo.png',
+    accent: '#82dde4',
+    privacyUrl: '/sketchshelf-privacy-policy.html',
+    gallery: [
+      '/media/sketchshelf-feature-graphic.png',
+    ],
+  },
+  {
     id: 'neon',
     name: 'Neon Horizon Radio',
     image: '/media/neon-feature-graphic.png',
@@ -276,12 +287,16 @@ function App() {
                 ) : null}
 
                 <div className="detail-actions">
-                  <a href={selectedApp.closedTestUrl} target="_blank" rel="noreferrer">
-                    Closed Test
-                  </a>
-                  <a href={selectedApp.storeUrl} target="_blank" rel="noreferrer">
-                    Play Store
-                  </a>
+                  {selectedApp.closedTestUrl ? (
+                    <a href={selectedApp.closedTestUrl} target="_blank" rel="noreferrer">
+                      Closed Test
+                    </a>
+                  ) : null}
+                  {selectedApp.storeUrl ? (
+                    <a href={selectedApp.storeUrl} target="_blank" rel="noreferrer">
+                      Play Store
+                    </a>
+                  ) : null}
                   {selectedApp.webUrl ? (
                     <a href={selectedApp.webUrl} target="_blank" rel="noreferrer">
                       Web App
